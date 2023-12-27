@@ -37,9 +37,10 @@ public class ExportProductToExcel {
         try {
             String query = """
                           SELECT Product_ID,Product_Name,
-                          Category_ID,Unit_Price,Quantity_In_Stock,
-                          Manufacture_Date,Expiry_Date,Entry_Date FROM Product
-                                   """;
+                          Category_Name,Unit_Price,Quantity_In_Stock,
+                          Manufacture_Date,Expiry_Date,Entry_Date FROM Product inner join Category
+                          on Product.Category_ID = Category.Category_ID
+                          """;
             switch (condition) {
                 case 0 ->  {
                     query += "WHERE Quantity_In_Stock >0 AND GETDATE() < Expiry_Date";
@@ -75,7 +76,7 @@ public class ExportProductToExcel {
             Map<String, String> columnMapping = new HashMap<>();
             columnMapping.put("Product_ID", "Mã sản phẩm");
             columnMapping.put("Product_Name", "Tên sản phẩm");
-            columnMapping.put("Category_ID", "Tên phân loại");
+            columnMapping.put("Category_Name", "Tên phân loại");
             columnMapping.put("Unit_Price", "Giá trị sản phẩm");
             columnMapping.put("Quantity_In_Stock", "Tổng số sản phẩm");
             columnMapping.put("Description", "Mô tả");

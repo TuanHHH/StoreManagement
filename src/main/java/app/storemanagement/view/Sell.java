@@ -644,7 +644,12 @@ public class Sell extends javax.swing.JPanel {
                     customerPhone.setText(rs.getString("Phone"));
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                if (e.getErrorCode() == 245) {
+                    JOptionPane.showMessageDialog(null, "Mã khách hàng phải là số", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_selectCustomerActionPerformed
